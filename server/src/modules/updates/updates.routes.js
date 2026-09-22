@@ -50,7 +50,7 @@ router.post('/projects/:projectId/updates', async (req, res) => {
     await History.create({
       project: project._id,
       user: update.updatedBy || 'System',
-      action: isDraft ? 'Update Saved as Draft' : 'Update Published',
+      action: isDraft ? 'Update Saved as Draft' : 'Update Submitted',
       previousValue: '',
       newValue: (update.currentUpdate || '').slice(0, 200),
     });
@@ -102,7 +102,7 @@ router.put('/updates/:id', async (req, res) => {
     await History.create({
       project: update.project,
       user: update.updatedBy || 'System',
-      action: update.isDraft ? 'Update Saved as Draft' : 'Update Published',
+      action: update.isDraft ? 'Update Saved as Draft' : 'Update Submitted',
       previousValue: '',
       newValue: (update.currentUpdate || '').slice(0, 200),
     });

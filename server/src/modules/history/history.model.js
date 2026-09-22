@@ -14,7 +14,7 @@ const historySchema = new Schema(
         'Project Updated',
         'Project Deleted',
         'Update Saved as Draft',
-        'Update Published',
+        'Update Submitted',
         'Update Deleted',
         'Milestone Added',
         'Milestone Updated',
