@@ -18,6 +18,13 @@ const SCRIPT_PATH = path.join(__dirname, 'send-outlook-mail.ps1');
  *   does not reliably display base64 data-URI images embedded directly in the HTML.
  */
 function openOutlookDraft({ to, cc, subject, text, html, attachmentPaths, inlineImages }) {
+  // Outlook COM automation only exists on Windows - fail fast with a clear error instead of
+  // a raw ENOENT from trying to spawn a nonexistent powershell.exe (e.g. on a Linux host).
+  if (process.platform !== 'win32') {
+    const err = new Error('This server is not running on Windows, so it cannot automate the desktop Outlook app.');
+    err.code = 'UNSUPPORTED_PLATFORM';
+    return Promise.reject(err);
+  }
   return new Promise((resolve, reject) => {
     const tmpFile = path.join(os.tmpdir(), `pcp-mail-${crypto.randomUUID()}.json`);
     fs.writeFileSync(

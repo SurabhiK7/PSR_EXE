@@ -12,6 +12,13 @@ async function openInOutlook({ to, cc, subject, text, html, attachmentPaths, inl
   try {
     await openOutlookDraft({ to, cc, subject, text, html, attachmentPaths, inlineImages });
   } catch (err) {
+    if (err.code === 'UNSUPPORTED_PLATFORM') {
+      const wrapped = new Error(
+        "Automatic sending isn't available in this environment - use Download to get the report and send it manually, or ask an admin to configure automatic email sending."
+      );
+      wrapped.code = 'OUTLOOK_UNAVAILABLE';
+      throw wrapped;
+    }
     const wrapped = new Error(
       `Could not open Outlook: ${err.message}. Make sure the desktop Outlook app is installed and signed in on this machine.`
     );
