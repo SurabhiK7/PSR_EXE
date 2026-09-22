@@ -1,0 +1,571 @@
+:root {
+  --pcp-sidebar-width: 284px;
+  --pcp-header-height: 64px;
+  --pcp-radius: 8px;
+  --pcp-radius-lg: 12px;
+  --pcp-border: #E3E7ED;
+  --pcp-text-secondary: #5B6472;
+  --pcp-brand: #0B6FCE;
+  --pcp-brand-dark: #0851A1;
+  --pcp-bg-page: #F4F6F9;
+  --pcp-shadow-card: 0 1px 2px rgba(15, 44, 87, 0.06), 0 1px 1px rgba(15, 44, 87, 0.04);
+  --pcp-shadow-card-hover: 0 10px 28px rgba(15, 44, 87, 0.12), 0 3px 8px rgba(15, 44, 87, 0.07);
+  --pcp-shadow-elevated: 0 16px 40px rgba(10, 27, 51, 0.16), 0 3px 10px rgba(10, 27, 51, 0.08);
+  --pcp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+  background-color: var(--pcp-bg-page);
+  color: #1F2937;
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+p {
+  margin: 0 0 8px 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+::selection {
+  background: rgba(11, 111, 206, 0.18);
+}
+
+::-moz-selection {
+  background: rgba(11, 111, 206, 0.18);
+}
+
+:focus-visible {
+  outline: 2px solid var(--pcp-brand);
+  outline-offset: 2px;
+  transition: outline-offset 0.1s ease;
+}
+
+.pcp-app-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--pcp-bg-page);
+}
+
+.pcp-main-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--pcp-sidebar-width);
+  min-height: 100vh;
+}
+
+.pcp-content {
+  padding: 28px 36px 56px;
+  flex: 1;
+  max-width: 1480px;
+  width: 100%;
+}
+
+@keyframes pcp-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pcp-page-transition {
+  animation: pcp-page-in 0.32s var(--pcp-ease) both;
+}
+
+@keyframes pcp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pcp-fade-up {
+  animation: pcp-fade-up 0.4s var(--pcp-ease) both;
+}
+
+.pcp-page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0F1B2D;
+  margin: 0 0 5px 0;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.pcp-page-subtitle {
+  font-size: 14px;
+  color: var(--pcp-text-secondary);
+  margin: 0 0 28px 0;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.pcp-page-header-accent {
+  width: 4px;
+  border-radius: 999px;
+  align-self: stretch;
+  background: #01A982;
+  flex-shrink: 0;
+}
+
+.pcp-card {
+  background: #fff;
+  border: 1px solid var(--pcp-border);
+  border-radius: var(--pcp-radius-lg);
+  box-shadow: var(--pcp-shadow-card);
+  transition: box-shadow 0.25s var(--pcp-ease), border-color 0.25s var(--pcp-ease), transform 0.25s var(--pcp-ease);
+}
+
+.pcp-card-hoverable:hover {
+  box-shadow: var(--pcp-shadow-card-hover);
+  border-color: #D3DAE3;
+}
+
+.pcp-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F1B2D;
+  margin: 0 0 18px 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--pcp-border);
+  letter-spacing: -0.01em;
+}
+
+.pcp-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.pcp-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pcp-scrollbar::-webkit-scrollbar-thumb {
+  background: #D1D6DC;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.pcp-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #B7BFC9;
+}
+
+.pcp-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.pcp-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.pcp-table-wrapper {
+  background: #fff;
+  border: 1px solid var(--pcp-border);
+  border-radius: var(--pcp-radius-lg);
+  overflow: hidden;
+}
+
+.pcp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.pcp-table thead tr {
+  background-color: #F4F6FA;
+  border-bottom: 1px solid var(--pcp-border);
+}
+
+.pcp-table th {
+  text-align: left;
+  padding: 14px 20px;
+  font-weight: 700;
+  color: #4B5768;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pcp-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #EEF1F5;
+  color: #1F2937;
+  vertical-align: middle;
+}
+
+.pcp-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pcp-table tbody tr {
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+.pcp-table tbody tr:hover {
+  background-color: #F9FBFD;
+  box-shadow: inset 3px 0 0 var(--pcp-brand);
+}
+
+.pcp-link-id {
+  color: var(--pcp-brand);
+  font-weight: 700;
+}
+
+/* Fluent v9 control chrome polish - stable slot class names (fui-*), safe to target directly. */
+.fui-Button {
+  transition: box-shadow 0.2s var(--pcp-ease), transform 0.15s var(--pcp-ease), background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.fui-Button:not(:disabled):hover {
+  box-shadow: 0 2px 8px rgba(15, 44, 87, 0.1);
+}
+
+.fui-Button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.fui-Field__label {
+  font-weight: 600;
+  color: #344054;
+  margin-bottom: 2px;
+}
+
+.fui-Input,
+.fui-Dropdown,
+.fui-Textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pcp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px;
+  color: var(--pcp-text-secondary);
+  text-align: center;
+  gap: 8px;
+}
+
+.pcp-empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F0F3F8;
+  color: #8E9AAC;
+  margin-bottom: 6px;
+  transition: transform 0.25s var(--pcp-ease);
+}
+
+.pcp-timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.pcp-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--pcp-border);
+}
+
+.pcp-timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.pcp-timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px var(--pcp-border);
+}
+
+.pcp-option-card {
+  transition: box-shadow 0.28s var(--pcp-ease), transform 0.28s var(--pcp-ease), border-color 0.28s var(--pcp-ease);
+}
+
+.pcp-option-card:hover {
+  box-shadow: var(--pcp-shadow-card-hover);
+  transform: translateY(-4px);
+  border-color: var(--pcp-brand);
+}
+
+.pcp-option-card:active {
+  transform: translateY(-1px);
+  transition-duration: 0.08s;
+}
+
+.pcp-option-card .pcp-option-icon {
+  transition: transform 0.28s var(--pcp-ease), background-color 0.28s var(--pcp-ease);
+}
+
+.pcp-option-card:hover .pcp-option-icon {
+  transform: scale(1.08);
+  background-color: #E7EBF1;
+}
+
+.pcp-option-card .pcp-option-cta svg {
+  transition: transform 0.25s var(--pcp-ease);
+}
+
+.pcp-option-card:hover .pcp-option-cta svg {
+  transform: translateX(3px);
+}
+
+.pcp-sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  margin-inline: 2px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4B5768;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.pcp-sidebar-link:hover {
+  background-color: #F4F6F9;
+  transform: translateX(2px);
+}
+
+.pcp-sidebar-link.is-active {
+  font-weight: 600;
+  color: #0F1B2D;
+  background-color: #EEF1F5;
+}
+
+.pcp-sidebar-link-bar {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 999px;
+  background: transparent;
+  transform: scaleY(0.4);
+  opacity: 0;
+  transition: transform 0.2s var(--pcp-ease), opacity 0.2s var(--pcp-ease), background-color 0.2s ease;
+}
+
+.pcp-sidebar-link.is-active .pcp-sidebar-link-bar {
+  background: #0F1B2D;
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+/* Auth pages (Login/Signup): drifting, morphing blobs blended over the brand green gradient,
+   giving a clearly visible "liquid glass" feel without changing the underlying color. */
+.pcp-auth-bg {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #01A982, #017D63);
+}
+
+.pcp-auth-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(45px);
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: overlay;
+}
+
+.pcp-auth-blob-1 {
+  width: 520px;
+  height: 520px;
+  top: -16%;
+  left: -12%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 22%, rgba(255, 255, 255, 0) 58%);
+  animation: pcp-auth-blob-move-1 42s ease-in-out infinite;
+}
+
+.pcp-auth-blob-2 {
+  width: 440px;
+  height: 440px;
+  bottom: -16%;
+  right: -10%;
+  background: radial-gradient(circle at 60% 40%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0) 60%);
+  animation: pcp-auth-blob-move-2 48s ease-in-out infinite;
+}
+
+.pcp-auth-blob-3 {
+  width: 360px;
+  height: 360px;
+  top: 36%;
+  left: 56%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 20%, rgba(255, 255, 255, 0) 58%);
+  animation: pcp-auth-blob-move-3 52s ease-in-out infinite;
+}
+
+.pcp-auth-blob-4 {
+  width: 220px;
+  height: 220px;
+  top: 8%;
+  right: 14%;
+  filter: blur(18px);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 18%, rgba(255, 255, 255, 0) 60%);
+  animation: pcp-auth-blob-move-4 36s ease-in-out infinite;
+}
+
+/* A faint diagonal light streak that drifts across the whole background, like light
+   glinting off a still pane of glass - slow and subtle, not a flashy sweep. */
+.pcp-auth-shine {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    100deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.1) 47%,
+    rgba(255, 255, 255, 0.32) 50%,
+    rgba(255, 255, 255, 0.1) 53%,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: pcp-auth-shine-sweep 24s ease-in-out infinite;
+}
+
+@keyframes pcp-auth-shine-sweep {
+  0%, 100% { transform: translateX(-20%) rotate(6deg); }
+  50% { transform: translateX(20%) rotate(6deg); }
+}
+
+@keyframes pcp-auth-blob-move-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(70px, 45px) scale(1.12); }
+  66% { transform: translate(-30px, 65px) scale(0.94); }
+}
+
+@keyframes pcp-auth-blob-move-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(-60px, -45px) scale(1.15); }
+  75% { transform: translate(35px, -20px) scale(0.9); }
+}
+
+@keyframes pcp-auth-blob-move-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-75px, 35px) scale(1.18); }
+}
+
+@keyframes pcp-auth-blob-move-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-45px, 30px) scale(1.2); }
+}
+
+.pcp-auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  padding: 48px 44px;
+  overflow: hidden;
+  animation: pcp-auth-card-in 0.5s var(--pcp-ease) both;
+}
+
+/* A periodic glossy glint that sweeps across the card, like light passing over glass -
+   mostly still, with a slow, brief shine every so often rather than a constant distraction. */
+.pcp-auth-card::before {
+  content: '';
+  position: absolute;
+  inset: -50% -20%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.75) 50%,
+    transparent 58%
+  );
+  pointer-events: none;
+  animation: pcp-auth-card-shine 9s ease-in-out infinite;
+}
+
+@keyframes pcp-auth-card-shine {
+  0%, 55% { transform: translateX(-140%); }
+  80%, 100% { transform: translateX(140%); }
+}
+
+@keyframes pcp-auth-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
