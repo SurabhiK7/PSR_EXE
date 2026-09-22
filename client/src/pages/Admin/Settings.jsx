@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Button, Field, Input, Textarea, Switch, Spinner } from '@fluentui/react-components';
-import { CheckmarkCircle24Filled, ErrorCircle24Filled, Save24Regular } from '@fluentui/react-icons';
+import { Save24Regular } from '@fluentui/react-icons';
 import api from '../../api/client.js';
 import PageHeader from '../../components/common/PageHeader.jsx';
 import { isValidEmail } from '../../utils/validation.js';
 
 export default function Settings() {
   const [form, setForm] = useState(null);
-  const [emailAutomation, setEmailAutomation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -18,7 +17,6 @@ export default function Settings() {
     api.get('/settings').then((res) => {
       const { emailAutomation: ea, ...rest } = res.data;
       setForm(rest);
-      setEmailAutomation(ea);
       setLoadedOrgName(rest.organizationName || '');
     }).finally(() => setLoading(false));
   }, []);
@@ -47,7 +45,6 @@ export default function Settings() {
         return;
       }
       setForm(rest);
-      setEmailAutomation(ea);
     } finally {
       setSaving(false);
     }
@@ -97,32 +94,6 @@ export default function Settings() {
             onChange={(e, d) => update('notifyOnDelete', d.checked)}
           />
         </div>
-      </section>
-
-      <section className="pcp-card" style={{ padding: 24, marginBottom: 20, maxWidth: 640 }}>
-        <div className="pcp-section-title">Email Automation (Azure)</div>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10 }}>
-          {emailAutomation?.configured ? (
-            <CheckmarkCircle24Filled style={{ color: '#0E7A2E', flexShrink: 0 }} />
-          ) : (
-            <ErrorCircle24Filled style={{ color: '#8A5A00', flexShrink: 0 }} />
-          )}
-          <div style={{ fontSize: 13.5 }}>
-            {emailAutomation?.configured ? (
-              <span>Azure automated email sending is <strong>configured and active</strong>. PSR communications will send automatically.</span>
-            ) : (
-              <span>
-                Azure automated email sending is <strong>not configured</strong>. PSR communications will fall back to opening a draft
-                in Outlook for manual send. To enable automation later, set the following environment variables on the server:
-              </span>
-            )}
-          </div>
-        </div>
-        {!emailAutomation?.configured && emailAutomation?.missingEnvVars?.length > 0 && (
-          <ul style={{ margin: '0 0 0 16px', fontSize: 13, color: 'var(--pcp-text-secondary)' }}>
-            {emailAutomation.missingEnvVars.map((v) => <li key={v}><code>{v}</code></li>)}
-          </ul>
-        )}
       </section>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
