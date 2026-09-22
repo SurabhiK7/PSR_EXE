@@ -290,6 +290,8 @@ export default function PSRWizardPage({ mode, projectId }) {
     setPreviewOpen(true);
   }
 
+  // "Submit and Send Communication" - submits the PSR (same as handleSubmit) and then opens
+  // the Send dialog, instead of navigating away, so the communication can go out right after.
   async function handleSend() {
     setError('');
     setInfo('');
@@ -309,9 +311,14 @@ export default function PSRWizardPage({ mode, projectId }) {
       if (!infoOk) return;
       const ok = await persistLatestUpdate(true);
       if (!ok) return;
+      const res = await api.put(`/projects/${project._id}`, {
+        status: 'Submitted',
+        lastUpdatedBy: project.projectManager,
+      });
+      setProject(res.data);
       setSendOpen(true);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to prepare the communication.');
+      setError(err.response?.data?.message || 'Failed to submit and prepare the communication.');
     } finally {
       setSaving(false);
       setSavingLabel('');

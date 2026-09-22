@@ -124,7 +124,7 @@ export default function WizardShell({
             <>
               {onSend && (
                 <Button icon={<Send24Regular />} onClick={onSend} disabled={saving}>
-                  {saving && savingLabel === 'send' ? <Spinner size="tiny" /> : 'Send Communication'}
+                  {saving && savingLabel === 'send' ? <Spinner size="tiny" /> : 'Submit and Send Communication'}
                 </Button>
               )}
               <Button appearance="primary" icon={<CheckmarkCircle24Regular />} onClick={onSubmit} disabled={saving}>
