@@ -130,7 +130,7 @@ export default function Home() {
             {activity.map((item) => (
               <div key={item._id} className="pcp-timeline-item">
                 <span className="pcp-timeline-dot" style={{ background: 'var(--pcp-brand)' }} />
-                <div style={{ fontSize: 13.5, color: '#101828', fontWeight: 600 }}>{item.action}</div>
+                <div style={{ fontSize: 13.5, color: '#101828', fontWeight: 600 }}>{item.action.replace(/^Project\b/, 'PSR')}</div>
                 <div style={{ fontSize: 12.5, color: 'var(--pcp-text-secondary)' }}>
                   {item.project ? `${item.project.prId} - ${item.project.accountName}` : 'Project removed'} · {item.user} · {formatDateTime(item.timestamp)}
                 </div>
