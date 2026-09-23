@@ -11,7 +11,7 @@ import { formatDate, formatDateTime } from '../../../utils/format.js';
 import { ragColors, ragMeanings } from '../../../theme/theme.js';
 
 // Brighter dot colors than the theme's badge text colors (which are darkened for text contrast).
-const ragColorsForDot = { ...Object.fromEntries(Object.entries(ragColors).map(([k, v]) => [k, v.fg])), Yellow: '#F2B705', Blue: '#0B6FCE' };
+const ragColorsForDot = { ...Object.fromEntries(Object.entries(ragColors).map(([k, v]) => [k, v.fg])), Yellow: '#F2B705', Blue: '#0B6FCE', Grey: '#9AA5B1' };
 
 const TABS = [
   { key: 'info', label: 'Project Information' },

@@ -14,8 +14,8 @@ const TEXT_DARK = '#101828';
 const BORDER_COLOR = '#E3E7ED';
 const HEADER_BG = '#F7F8FA';
 
-const RAG_COLORS = { Green: '#0E7A2E', Yellow: '#8A5A00', Red: '#B0272B' };
-const RAG_BG = { Green: '#E6F4EA', Yellow: '#FFF4E0', Red: '#FCE8E8' };
+const RAG_COLORS = { Green: '#0E7A2E', Yellow: '#8A5A00', Red: '#B0272B', Blue: '#0851A1', Grey: '#5B6472' };
+const RAG_BG = { Green: '#E6F4EA', Yellow: '#FFF4E0', Red: '#FCE8E8', Blue: '#EAF3FC', Grey: '#EEF0F3' };
 
 // Optional org wordmark image, same path convention as the communication template. Falls back
 // to a plain header title (no logo) if the file isn't present.

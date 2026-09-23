@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const STATUS_CODES = ['Green', 'Yellow', 'Red', 'Blue'];
+const STATUS_CODES = ['Green', 'Yellow', 'Red', 'Blue', 'Grey'];
 
 const milestoneSchema = new Schema(
   {

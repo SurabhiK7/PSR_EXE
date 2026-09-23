@@ -21,11 +21,11 @@ const TEXT_MUTED = '#5B6472';
 const TEXT_DARK = '#101828';
 const BORDER_COLOR = '#E3E7ED';
 
-const RAG_COLORS = { Green: '#0E7A2E', Yellow: '#8A5A00', Red: '#B0272B', Blue: '#0851A1' };
-const RAG_BG = { Green: '#E6F4EA', Yellow: '#FFF4E0', Red: '#FCE8E8', Blue: '#EAF3FC' };
+const RAG_COLORS = { Green: '#0E7A2E', Yellow: '#8A5A00', Red: '#B0272B', Blue: '#0851A1', Grey: '#5B6472' };
+const RAG_BG = { Green: '#E6F4EA', Yellow: '#FFF4E0', Red: '#FCE8E8', Blue: '#EAF3FC', Grey: '#EEF0F3' };
 // What each milestone RAG status code actually means - shown in the badge instead of the raw
 // color name (kept in sync with client/src/theme/theme.js's `ragMeanings`).
-const RAG_MEANINGS = { Green: 'In Progress', Yellow: 'Not Started', Red: 'Critical Risk', Blue: 'Completed' };
+const RAG_MEANINGS = { Green: 'On Track', Yellow: 'At Risk', Red: 'Off Track', Blue: 'Completed', Grey: 'Not Started' };
 
 // Optional org wordmark image, cropped to its tight bounding box (the source file may have
 // generous white padding). Falls back to a plain text badge (see orgLogoHtml) if absent -

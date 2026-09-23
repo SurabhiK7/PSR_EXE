@@ -36,7 +36,7 @@ const STAGE_SHADES = {
   Completed: '#0B6FCE',
   Closed: '#5B6472',
 };
-const RAG_SHADES = { Green: '#1E9E4A', Yellow: '#F2B705', Red: '#E23E3E', Blue: '#0B6FCE' };
+const RAG_SHADES = { Green: '#1E9E4A', Yellow: '#F2B705', Red: '#E23E3E', Blue: '#0B6FCE', Grey: '#9AA5B1' };
 
 const STAT_CARDS = [
   { key: 'totalProjects', label: 'Total Projects', icon: Folder24Regular },
