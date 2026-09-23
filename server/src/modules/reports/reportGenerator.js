@@ -280,10 +280,10 @@ function generateReportPdf(data) {
     const historyUpdates = updates.slice(1);
     if (historyUpdates.length) {
       sectionTitle('History');
-      const periodText = `${fmtDate(project.reportingPeriodStartDate)} - ${fmtDate(project.reportingPeriodEndDate)}`;
       historyUpdates.forEach((u) => {
         const updateText = u.currentUpdate || '-';
         const nextStepsText = u.nextSteps || '-';
+        const periodText = `${fmtDate(u.reportingPeriodStartDate)} - ${fmtDate(u.reportingPeriodEndDate)}`;
         const height =
           14 +
           doc.heightOfString(periodText, { fontSize: 9.5 }) +

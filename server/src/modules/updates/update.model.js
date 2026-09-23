@@ -13,6 +13,12 @@ const updateSchema = new Schema(
     sentAt: { type: Date },
     sentTo: { type: String, default: '' },
     sentCc: { type: String, default: '' },
+
+    // Snapshot of the project's reporting period at the time this update was saved - shown in
+    // the communication's History section instead of the current project value, so each past
+    // entry reflects the reporting period it actually reported on (which may have since changed).
+    reportingPeriodStartDate: { type: Date },
+    reportingPeriodEndDate: { type: Date },
   },
   { timestamps: true }
 );
