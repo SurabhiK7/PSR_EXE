@@ -67,21 +67,21 @@ export const stageColors = {
 };
 
 export const ragColors = {
+  Grey: { fg: '#5B6472', bg: '#EEF0F3', border: '#C7CCD3' },
   Green: { fg: '#0E7A2E', bg: '#E6F4EA', border: '#9BD8AE' },
   Yellow: { fg: '#8A5A00', bg: '#FFF4E0', border: '#F2C46A' },
   Red: { fg: '#B0272B', bg: '#FCE8E8', border: '#EFA6A8' },
   Blue: { fg: '#0851A1', bg: '#EAF3FC', border: '#9BC4EE' },
-  Grey: { fg: '#5B6472', bg: '#EEF0F3', border: '#C7CCD3' },
 };
 
 // What each milestone RAG status color actually means - shown as the badge label instead of
 // the raw color name so users don't have to memorize what "Blue" or "Yellow" stands for.
 export const ragMeanings = {
+  Grey: 'Not Started',
   Green: 'On Track',
   Yellow: 'At Risk',
   Red: 'Off Track',
   Blue: 'Completed',
-  Grey: 'Not Started',
 };
 
 export const impactColors = {

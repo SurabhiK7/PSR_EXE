@@ -12,7 +12,7 @@ import DateInput from '../../../components/common/DateInput.jsx';
 import { formatDate, toInputDate } from '../../../utils/format.js';
 import { ragColors, ragMeanings } from '../../../theme/theme.js';
 
-const STATUS_CODES = ['Green', 'Yellow', 'Red', 'Blue', 'Grey'];
+const STATUS_CODES = ['Grey', 'Green', 'Yellow', 'Red', 'Blue'];
 const STATUS_MEANINGS = ragMeanings;
 const PHASE_OPTIONS = ['Initiation', 'Service Planning', 'Service Implementation', 'Testing and Validation', 'Handover', 'Closure'];
 // Brighter dot colors than the theme's badge text colors (which are darkened for text contrast).
