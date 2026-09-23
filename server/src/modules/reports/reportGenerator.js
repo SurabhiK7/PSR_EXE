@@ -38,15 +38,15 @@ function fmtDate(value) {
   if (!value) return 'TBD';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return 'TBD';
-  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Kolkata' });
 }
 
 function fmtDateTime(value) {
   if (!value) return '-';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '-';
-  const timePart = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  return `${d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}, ${timePart}`;
+  const timePart = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+  return `${d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Kolkata' })}, ${timePart}`;
 }
 
 /**

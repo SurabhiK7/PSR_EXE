@@ -9,7 +9,7 @@ function fmtDate(value) {
   if (!value) return 'TBD';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return 'TBD';
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Kolkata' });
 }
 
 /**
