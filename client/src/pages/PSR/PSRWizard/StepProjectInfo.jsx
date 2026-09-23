@@ -1,7 +1,7 @@
 import { Field, Input, Textarea, Dropdown, Option } from '@fluentui/react-components';
 import DateInput from '../../../components/common/DateInput.jsx';
 
-const PROJECT_STAGES = ['Initiation', 'Planning', 'In Progress', 'On Hold', 'Completed', 'Closed'];
+const PROJECT_STAGES = ['In Progress', 'At Risk', 'Delayed', 'On Hold', 'Completed', 'Closed'];
 
 export default function StepProjectInfo({ form, onChange, prId, mode }) {
   return (

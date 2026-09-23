@@ -58,9 +58,9 @@ export const sidebarTheme = {
 };
 
 export const stageColors = {
-  Initiation: { fg: '#5B6472', bg: '#EEF0F3', border: '#C7CCD3' },
-  Planning: { fg: '#0851A1', bg: '#EAF3FC', border: '#9BC4EE' },
   'In Progress': { fg: '#0E7A2E', bg: '#E6F4EA', border: '#9BD8AE' },
+  'At Risk': { fg: '#8A5A00', bg: '#FFF4E0', border: '#F2C46A' },
+  Delayed: { fg: '#B0272B', bg: '#FCE8E8', border: '#EFA6A8' },
   'On Hold': { fg: '#8A5A00', bg: '#FFF4E0', border: '#F2C46A' },
   Completed: { fg: '#0E7A2E', bg: '#E6F4EA', border: '#9BD8AE' },
   Closed: { fg: '#5B6472', bg: '#EEF0F3', border: '#C7CCD3' },

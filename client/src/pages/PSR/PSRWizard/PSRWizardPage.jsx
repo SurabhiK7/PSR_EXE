@@ -30,7 +30,7 @@ const emptyProjectForm = {
   projectStartDate: '',
   reportingPeriodStartDate: '',
   reportingPeriodEndDate: '',
-  projectStage: 'Initiation',
+  projectStage: 'In Progress',
 };
 
 const emptyUpdateForm = { currentUpdate: '', nextSteps: '' };
@@ -72,7 +72,7 @@ export default function PSRWizardPage({ mode, projectId }) {
         projectStartDate: toInputDate(p.projectStartDate),
         reportingPeriodStartDate: toInputDate(p.reportingPeriodStartDate),
         reportingPeriodEndDate: toInputDate(p.reportingPeriodEndDate),
-        projectStage: p.projectStage || 'Initiation',
+        projectStage: p.projectStage || 'In Progress',
       });
       // If the most recent update is still an unpublished draft, continuing here means
       // continuing THAT draft - pre-fill its content and keep editing the same record (so

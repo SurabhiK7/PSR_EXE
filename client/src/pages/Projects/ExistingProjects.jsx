@@ -8,7 +8,7 @@ import StatusBadge from '../../components/common/StatusBadge.jsx';
 import EmptyState from '../../components/common/EmptyState.jsx';
 import { formatDate } from '../../utils/format.js';
 
-const PROJECT_STAGES = ['Initiation', 'Planning', 'In Progress', 'On Hold', 'Completed', 'Closed'];
+const PROJECT_STAGES = ['In Progress', 'At Risk', 'Delayed', 'On Hold', 'Completed', 'Closed'];
 
 export default function ExistingProjects() {
   const navigate = useNavigate();

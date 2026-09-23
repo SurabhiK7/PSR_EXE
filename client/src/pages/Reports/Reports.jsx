@@ -29,9 +29,9 @@ const COLOR = {
 // Chart colors follow the standard status legend: gray = not started, green = on track,
 // yellow = at risk, red = critical/blocked, blue = completed.
 const STAGE_SHADES = {
-  Initiation: '#9AA5B1',
-  Planning: '#9AA5B1',
   'In Progress': '#1E9E4A',
+  'At Risk': '#F2B705',
+  Delayed: '#E23E3E',
   'On Hold': '#F2B705',
   Completed: '#0B6FCE',
   Closed: '#5B6472',

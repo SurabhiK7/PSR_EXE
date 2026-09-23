@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const PROJECT_STAGES = ['Initiation', 'Planning', 'In Progress', 'On Hold', 'Completed', 'Closed'];
+const PROJECT_STAGES = ['In Progress', 'At Risk', 'Delayed', 'On Hold', 'Completed', 'Closed'];
 const PROJECT_STATUSES = ['Draft', 'Submitted'];
 
 const projectSchema = new Schema(
@@ -14,7 +14,7 @@ const projectSchema = new Schema(
     projectStartDate: { type: Date, required: true },
     reportingPeriodStartDate: { type: Date },
     reportingPeriodEndDate: { type: Date },
-    projectStage: { type: String, enum: PROJECT_STAGES, default: 'Initiation' },
+    projectStage: { type: String, enum: PROJECT_STAGES, default: 'In Progress' },
     status: { type: String, enum: PROJECT_STATUSES, default: 'Draft' },
     // Wizard step index (0-based) active when "Save as Draft" was last clicked, so continuing
     // a draft from the Drafts page reopens the same step instead of always starting at step 0.

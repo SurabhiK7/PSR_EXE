@@ -11,7 +11,7 @@ import ConfirmDeleteDialog from '../../../components/common/ConfirmDeleteDialog.
 import DateInput from '../../../components/common/DateInput.jsx';
 import { formatDate, toInputDate } from '../../../utils/format.js';
 
-const PROJECT_STAGES = ['Initiation', 'Planning', 'In Progress', 'On Hold', 'Completed', 'Closed'];
+const PROJECT_STAGES = ['In Progress', 'At Risk', 'Delayed', 'On Hold', 'Completed', 'Closed'];
 
 export default function ProjectInfoSection({ project, onUpdated }) {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function ProjectInfoSection({ project, onUpdated }) {
       projectManager: project.projectManager || '',
       projectScope: project.projectScope || '',
       projectStartDate: toInputDate(project.projectStartDate),
-      projectStage: project.projectStage || 'Initiation',
+      projectStage: project.projectStage || 'In Progress',
     });
     setError('');
     setEditOpen(true);
