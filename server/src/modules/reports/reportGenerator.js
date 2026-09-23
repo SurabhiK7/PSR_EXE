@@ -41,6 +41,14 @@ function fmtDate(value) {
   return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Kolkata' });
 }
 
+// DD-MM-YYYY, used only for the History section's reporting period range.
+function fmtDateDMY(value) {
+  if (!value) return 'TBD';
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return 'TBD';
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Kolkata' }).replace(/\//g, '-');
+}
+
 function fmtDateTime(value) {
   if (!value) return '-';
   const d = new Date(value);
@@ -283,7 +291,7 @@ function generateReportPdf(data) {
       historyUpdates.forEach((u) => {
         const updateText = u.currentUpdate || '-';
         const nextStepsText = u.nextSteps || '-';
-        const periodText = `${fmtDate(u.reportingPeriodStartDate)} - ${fmtDate(u.reportingPeriodEndDate)}`;
+        const periodText = `${fmtDateDMY(u.reportingPeriodStartDate)} - ${fmtDateDMY(u.reportingPeriodEndDate)}`;
         const height =
           14 +
           doc.heightOfString(periodText, { fontSize: 9.5 }) +
