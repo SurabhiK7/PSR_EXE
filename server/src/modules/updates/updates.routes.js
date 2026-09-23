@@ -38,8 +38,6 @@ router.post('/projects/:projectId/updates', async (req, res) => {
       nextSteps: req.body.nextSteps || '',
       updatedBy: req.body.updatedBy || '',
       isDraft,
-      reportingPeriodStartDate: project.reportingPeriodStartDate,
-      reportingPeriodEndDate: project.reportingPeriodEndDate,
     });
     await update.save();
 
@@ -84,23 +82,21 @@ router.put('/updates/:id', async (req, res) => {
     if (!update) return res.status(404).json({ message: 'Update not found' });
 
     const wasDraft = update.isDraft;
-    const project = await Project.findById(update.project);
     Object.assign(update, {
       currentUpdate: req.body.currentUpdate ?? update.currentUpdate,
       nextSteps: req.body.nextSteps ?? update.nextSteps,
       updatedBy: req.body.updatedBy ?? update.updatedBy,
       isDraft: req.body.isDraft !== undefined ? req.body.isDraft : update.isDraft,
-      // Refresh the snapshot to whatever the project's reporting period currently is, in case
-      // Project Information was edited since this update was first started.
-      reportingPeriodStartDate: project ? project.reportingPeriodStartDate : update.reportingPeriodStartDate,
-      reportingPeriodEndDate: project ? project.reportingPeriodEndDate : update.reportingPeriodEndDate,
     });
     await update.save();
 
-    if (wasDraft && !update.isDraft && project) {
-      project.lastUpdatedBy = update.updatedBy || project.lastUpdatedBy;
-      project.lastUpdatedDate = new Date();
-      await project.save();
+    if (wasDraft && !update.isDraft) {
+      const project = await Project.findById(update.project);
+      if (project) {
+        project.lastUpdatedBy = update.updatedBy || project.lastUpdatedBy;
+        project.lastUpdatedDate = new Date();
+        await project.save();
+      }
     }
 
     await History.create({
