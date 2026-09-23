@@ -283,13 +283,14 @@ function generateReportPdf(data) {
       historyUpdates.forEach((u) => {
         const updateText = u.currentUpdate || '-';
         const nextStepsText = u.nextSteps || '-';
+        const periodText = `${fmtDate(u.reportingPeriodStartDate)} - ${fmtDate(u.reportingPeriodEndDate)}`;
         const height =
           14 +
-          doc.heightOfString(fmtDateTime(u.createdAt), { fontSize: 9.5 }) +
+          doc.heightOfString(periodText, { fontSize: 9.5 }) +
           doc.heightOfString(updateText, { width: pageWidth, fontSize: 10 }) +
           doc.heightOfString(`Next Steps: ${nextStepsText}`, { width: pageWidth, fontSize: 9.5 });
         ensureSpace(height);
-        doc.fontSize(9.5).font('Helvetica-Bold').fillColor(TEXT_DARK).text(fmtDateTime(u.createdAt), pageLeft, doc.y, { width: pageWidth });
+        doc.fontSize(9.5).font('Helvetica-Bold').fillColor(TEXT_DARK).text(periodText, pageLeft, doc.y, { width: pageWidth });
         doc.fontSize(10).font('Helvetica').fillColor(TEXT_DARK).text(updateText, pageLeft, doc.y + 2, { width: pageWidth });
         doc.fontSize(9.5).font('Helvetica-Bold').fillColor(TEXT_MUTED).text('Next Steps: ', pageLeft, doc.y + 2, { continued: true, width: pageWidth });
         doc.font('Helvetica').text(nextStepsText);

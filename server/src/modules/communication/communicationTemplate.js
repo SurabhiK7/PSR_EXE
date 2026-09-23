@@ -194,7 +194,7 @@ async function buildCommunicationHtml(
     .map(
       (u) => `
       <li style="margin-bottom:14px;">
-        <div style="font-size:12.5px;font-weight:700;color:${TEXT_DARK};">${fmtDateTime(u.createdAt)}</div>
+        <div style="font-size:12.5px;font-weight:700;color:${TEXT_DARK};">${fmtDate(u.reportingPeriodStartDate)} - ${fmtDate(u.reportingPeriodEndDate)}</div>
         <div style="font-size:13px;color:${TEXT_DARK};margin-top:3px;">${nl2br(u.currentUpdate)}</div>
         <div style="font-size:12.5px;color:${TEXT_MUTED};margin-top:3px;"><strong>Next Steps:</strong> ${nl2br(u.nextSteps)}</div>
       </li>`
