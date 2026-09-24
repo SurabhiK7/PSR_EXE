@@ -9,6 +9,8 @@ import { formatDateTime } from '../../utils/format.js';
 /**
  * Lists every unfinished draft across the app in one place:
  * - Projects started via "Create PSR" but never submitted (Project.status === 'Draft').
+ * - Already-submitted projects with unpublished "Save as Draft" edits pending on any wizard
+ *   step (Project.draftSavedAt set).
  * - "Latest Update" drafts saved from the wizard's Update step for existing projects,
  *   but not yet published.
  * Continuing a draft resumes the same wizard step it was saved from.
@@ -23,10 +25,11 @@ export default function Drafts() {
     setLoading(true);
     Promise.all([
       api.get('/projects', { params: { status: 'Draft' } }).then((res) => res.data).catch(() => []),
+      api.get('/projects', { params: { unfinished: true } }).then((res) => res.data).catch(() => []),
       api.get('/updates/drafts').then((res) => res.data).catch(() => []),
     ])
-      .then(([projects, updates]) => {
-        setProjectDrafts(projects);
+      .then(([draftProjects, unfinishedProjects, updates]) => {
+        setProjectDrafts([...draftProjects, ...unfinishedProjects]);
         // A project that is itself still a draft already shows up above - don't list it twice.
         setUpdateDrafts(updates.filter((u) => u.project?.status !== 'Draft' && u.project));
       })

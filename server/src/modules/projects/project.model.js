@@ -19,6 +19,10 @@ const projectSchema = new Schema(
     // Wizard step index (0-based) active when "Save as Draft" was last clicked, so continuing
     // a draft from the Drafts page reopens the same step instead of always starting at step 0.
     draftStep: { type: Number, default: 0 },
+    // Set whenever "Save as Draft" is clicked on an already-Submitted project (unpublished
+    // in-progress edits), so it can still be surfaced on the Drafts page even though `status`
+    // itself must stay 'Submitted'. Cleared once those edits are actually published.
+    draftSavedAt: { type: Date, default: null },
 
     lastUpdatedBy: { type: String, default: '' },
     lastUpdatedDate: { type: Date, default: Date.now },

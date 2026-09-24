@@ -77,7 +77,7 @@ const router = express.Router();
 // GET /api/projects - search
 router.get('/', async (req, res) => {
   try {
-    const { q, projectStage, status } = req.query;
+    const { q, projectStage, status, unfinished } = req.query;
     const filter = {};
 
     if (q) {
@@ -86,6 +86,13 @@ router.get('/', async (req, res) => {
     }
     if (projectStage) filter.projectStage = projectStage;
     if (status) filter.status = status;
+    // Already-Submitted projects that still have unpublished "Save as Draft" edits pending -
+    // used by the Drafts page so those edits aren't lost track of once `status` can no longer
+    // represent "unfinished" on its own.
+    if (unfinished === 'true') {
+      filter.status = { $ne: 'Draft' };
+      filter.draftSavedAt = { $ne: null };
+    }
 
     const projects = await Project.find(filter).sort({ lastUpdatedDate: -1 }).lean();
     res.json(projects);

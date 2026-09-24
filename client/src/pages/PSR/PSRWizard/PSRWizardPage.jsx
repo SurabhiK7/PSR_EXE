@@ -138,27 +138,25 @@ export default function PSRWizardPage({ mode, projectId }) {
     return true;
   }
 
-  // Same strict/lenient split as validateProjectForm - Save as Draft may save just one of the
-  // two fields, since a draft is allowed to be incomplete. That leniency doesn't apply, though,
-  // if this project has never had a Latest Update saved at all (mode === 'create' or an
-  // existing project with no Update record yet) - every project must have one on file at
-  // least once, so both fields are mandatory regardless of strict in that case.
-  function validateUpdateForm({ strict = true } = {}) {
+  // Current Update/Next Steps are only mandatory the very first time a project has a Latest
+  // Update saved (mode === 'create', or an existing project with no Update record yet) - every
+  // project must have one on file at least once. Every time after that, both fields are
+  // optional on every action (Next, Submit, Send, and Save as Draft alike).
+  function validateUpdateForm() {
     const mustHaveContent = mode === 'create' || !hasAnyUpdate;
-    if ((strict || mustHaveContent) && (!updateForm.currentUpdate?.trim() || !updateForm.nextSteps?.trim())) {
-      setError(
-        mustHaveContent
-          ? 'This project has no Latest Update on file yet - please enter a Current Update and Next Steps before continuing.'
-          : 'Please complete all required fields before continuing.'
-      );
+    if (mustHaveContent && (!updateForm.currentUpdate?.trim() || !updateForm.nextSteps?.trim())) {
+      setError('This project has no Latest Update on file yet - please enter a Current Update and Next Steps before continuing.');
       return false;
     }
     return true;
   }
 
-  async function persistProjectInfo({ strict = true, draftStep } = {}) {
+  async function persistProjectInfo({ strict = true, draftStep, draftSavedAt } = {}) {
     if (!validateProjectForm({ strict })) return false;
-    const extra = draftStep !== undefined ? { draftStep } : {};
+    const extra = {
+      ...(draftStep !== undefined ? { draftStep } : {}),
+      ...(draftSavedAt !== undefined ? { draftSavedAt } : {}),
+    };
     if (!project) {
       const res = await api.post('/projects', { ...projectForm, ...extra, prId: projectForm.prId.trim() });
       setProject(res.data);
@@ -170,9 +168,9 @@ export default function PSRWizardPage({ mode, projectId }) {
     return true;
   }
 
-  async function persistLatestUpdate(publish, { strict = true } = {}) {
+  async function persistLatestUpdate(publish) {
     if (!project) return false;
-    if (!validateUpdateForm({ strict })) return false;
+    if (!validateUpdateForm()) return false;
     // Nothing typed - don't create/overwrite an update record with blank content, and don't
     // let it count as a "latest update" or clutter history.
     if (!updateForm.currentUpdate?.trim() && !updateForm.nextSteps?.trim()) return true;
@@ -262,15 +260,26 @@ export default function PSRWizardPage({ mode, projectId }) {
     setSavingLabel('draft');
     try {
       if (step === 0) {
-        const ok = await persistProjectInfo({ strict: false, draftStep: step });
+        // Only already-Submitted projects need the extra draftSavedAt marker - a still-Draft
+        // project already shows up on Drafts via its status alone.
+        const draftSavedAt = project?.status === 'Submitted' ? new Date().toISOString() : undefined;
+        const ok = await persistProjectInfo({ strict: false, draftStep: step, draftSavedAt });
         if (!ok) return;
       } else if (step === 1) {
-        const ok = await persistLatestUpdate(false, { strict: false });
+        const ok = await persistLatestUpdate(false);
         if (!ok) return;
-        await api.put(`/projects/${project._id}`, { draftStep: step, lastUpdatedBy: project.projectManager });
+        await api.put(`/projects/${project._id}`, {
+          draftStep: step,
+          lastUpdatedBy: project.projectManager,
+          ...(project.status === 'Submitted' ? { draftSavedAt: new Date().toISOString() } : {}),
+        });
       } else if (project) {
         // Steps 3-5 save per-row via their own dialogs - just record which step to resume on.
-        await api.put(`/projects/${project._id}`, { draftStep: step, lastUpdatedBy: project.projectManager });
+        await api.put(`/projects/${project._id}`, {
+          draftStep: step,
+          lastUpdatedBy: project.projectManager,
+          ...(project.status === 'Submitted' ? { draftSavedAt: new Date().toISOString() } : {}),
+        });
       }
       navigate('/', { state: { flashMessage: 'Saved as draft.' } });
     } catch (err) {
@@ -313,6 +322,7 @@ export default function PSRWizardPage({ mode, projectId }) {
       if (!ok) return;
       const res = await api.put(`/projects/${project._id}`, {
         status: 'Submitted',
+        draftSavedAt: null,
         lastUpdatedBy: project.projectManager,
       });
       setProject(res.data);
@@ -348,6 +358,7 @@ export default function PSRWizardPage({ mode, projectId }) {
       if (!ok) return;
       const res = await api.put(`/projects/${project._id}`, {
         status: 'Submitted',
+        draftSavedAt: null,
         lastUpdatedBy: project.projectManager,
       });
       navigate(`/projects/${res.data._id}`);
